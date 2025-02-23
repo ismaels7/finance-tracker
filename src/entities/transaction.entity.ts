@@ -1,9 +1,10 @@
 export interface Transaction {
-    id: string;
-    userId: string
-    amount: string,
+    userId: string,
+    id: string,
     type: string,
-    category: string
+    name: string,
+    amount: string,
+    category: string,
     createdAt: string,
-    updatedAt: string
+    updatedAt: string,
 }
