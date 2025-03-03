@@ -76,7 +76,8 @@ export class TransactionsService {
         const command = new GetCommand({
             TableName: this.tableName,
             Key: {
-                userId: userId
+                userId: userId,
+                id: transactionId
             },
         });
 
@@ -128,6 +129,10 @@ export class TransactionsService {
                 mappedKey = '#type';  // The hash sign replaces the reserved keyword
                 expressionAttributeNames[mappedKey] = key;  // Actual attribute name mapping
             }
+            if (key === 'name') {
+                mappedKey = '#name';  
+                expressionAttributeNames[mappedKey] = key; 
+            }
 
             updateExpressionParts.push(`${mappedKey} = :${key}`);
             expressionAttributeValues[`:${key}`] = updatedData[key];
@@ -153,6 +158,7 @@ export class TransactionsService {
     }
 
     async deleteTransaction(userId: string, id: string) {
+        console.log('delete transactions - Service')
         if (!id || !userId) {
             throw new Error('Both UserID and TransactionID are required');
         }

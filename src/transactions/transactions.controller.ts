@@ -11,8 +11,8 @@ export class TransactionsController {
     async createTransaction(
         @Req() request: AuthenticatedRequest,
         @Body() transaction: Omit<Transaction, 'userId' | 'id' | 'createdAt' | 'updatedAt'>) {
-            const userId = request.user!.id;
-        return this.transactionService.createTransaction(userId,transaction)
+        const userId = request.user!.id;
+        return this.transactionService.createTransaction(userId, transaction)
     }
 
     @Get()
@@ -20,6 +20,7 @@ export class TransactionsController {
         @Req() request: AuthenticatedRequest
     ) {
         const userId = request.user!.id
+        console.log('userID for transactionsByUserID ', userId)
         return this.transactionService.getTransactionsByUserId(userId)
     }
 
@@ -37,7 +38,7 @@ export class TransactionsController {
         @Req() request: AuthenticatedRequest,
         @Param('id') id: string,
         @Body() updatedData: Partial<Transaction>) {
-            const userId = request.user!.id
+        const userId = request.user!.id
         return this.transactionService.updateTransaction(userId, id, updatedData)
     }
 
@@ -45,7 +46,8 @@ export class TransactionsController {
     async deleteTransaction(
         @Req() request: AuthenticatedRequest,
         @Param('id') id: string) {
-            const userId = request.user!.id
+        console.log('delete transaction - Controller')
+        const userId = request.user!.id
         return this.transactionService.deleteTransaction(userId, id)
     }
 
